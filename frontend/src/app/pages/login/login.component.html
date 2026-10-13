@@ -1,0 +1,51 @@
+<main class="pantalla">
+  <section class="tarjeta">
+    <h1 class="titulo">Iniciar sesión</h1>
+
+    <form [formGroup]="form" (ngSubmit)="iniciarSesion()" novalidate>
+      <div class="campo">
+        <label for="correo">Correo</label>
+        <input
+          id="correo"
+          type="email"
+          formControlName="correo"
+          placeholder="correo@ejemplo.com"
+          autocomplete="email"
+          [class.invalido]="mostrarError('correo')"
+        />
+        @if (mostrarError('correo')) {
+          <p class="error" role="alert">
+            @if (form.controls.correo.hasError('required')) {
+              Escribe tu correo.
+            } @else {
+              Usa un correo con formato usuario&#64;dominio.com.
+            }
+          </p>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="contrasena">Contraseña</label>
+        <input
+          id="contrasena"
+          type="password"
+          formControlName="contrasena"
+          placeholder="••••••••"
+          autocomplete="current-password"
+          [class.invalido]="mostrarError('contrasena')"
+        />
+        @if (mostrarError('contrasena')) {
+          <p class="error" role="alert">Escribe tu contraseña.</p>
+        }
+      </div>
+
+      @if (errorServidor()) {
+        <p class="error aviso" role="alert">{{ errorServidor() }}</p>
+      }
+
+      <button class="boton enviar" type="submit" [disabled]="cargando()">
+        {{ cargando() ? 'Verificando…' : 'Iniciar sesión' }}
+      </button>
+    </form>
+  </section>
+</main>

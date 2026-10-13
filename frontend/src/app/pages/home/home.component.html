@@ -1,0 +1,31 @@
+<main class="pantalla">
+  <section class="tarjeta">
+    @if (cargando()) {
+      <p class="estado">Cargando tus datos…</p>
+    } @else {
+      @if (perfil(); as p) {
+        <h1 class="titulo">{{ titulo() }}</h1>
+
+        <dl class="datos">
+          <div class="dato">
+            <dt>Correo</dt>
+            <dd class="correo">{{ p.correo }}</dd>
+          </div>
+          <div class="dato">
+            <dt>Username</dt>
+            <dd>{{ p.nombre }}</dd>
+          </div>
+          <div class="dato">
+            <dt>Rol</dt>
+            <dd><span class="insignia">{{ p.rol }}</span></dd>
+          </div>
+        </dl>
+      } @else {
+        <h1 class="titulo">No pudimos cargar tus datos</h1>
+        <p class="error" role="alert">{{ error() }}</p>
+      }
+    }
+
+    <button class="boton cerrar" type="button" (click)="cerrarSesion()">Cerrar sesión</button>
+  </section>
+</main>
